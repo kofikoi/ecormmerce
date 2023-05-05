@@ -34,18 +34,46 @@
         
         <div class="row">
             <div class="col-md-6">
-                <h3>{{ vehicle1.vehicle }}</h3>
+                <h3 id="vehicle1" data-my-var="{{vehicle1.vehicle}}">{{ vehicle1.vehicle }}</h3>
                 <p>{{ vehicle1.model }}</p>
                 <p>Year of make: {{ vehicle1.year }}</p>
-                <p>Price: ${{ vehicle1.price }}</p>
+                <p id="price1" data-my-var="{{ vehicle1.price }}">Price: ${{ vehicle1.price }}</p>
             </div>
             <div class="col-md-6">
-                <h3>{{ vehicle2.vehicle }}</h3>
+                <h3 id="vehicle2" data-my-var="{{vehicle2.vehicle}}">{{ vehicle2.vehicle }}</h3>
                 <p>{{ vehicle2.model }}</p>
                 <p>Year of make: {{ vehicle2.year }}</p>
-                <p>Price: ${{ vehicle2.price }}</p>
+                <p id="price2" data-my-var="{{ vehicle2.price }}">Price: ${{ vehicle2.price }}</p>
             </div>
         </div>
+        <hr>
+        <h2>Comparison Charts</h2>
+    
+            <div class="col-md-6">
+                <h3>Price Comparison</h3>
+                <div id="price-chart"></div>
+            </div>
+       
+        
+
+    
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script>
+           var price1 = document.getElementById('price1').getAttribute('data-my-var');
+           var price2 = document.getElementById('price2').getAttribute('data-my-var');
+           var vehicle1 = document.getElementById('vehicle1').getAttribute('data-my-var');
+           var vehicle2 = document.getElementById('vehicle2').getAttribute('data-my-var');
+            var price_data = [{
+                x: ['Vehicle 1', 'Vehicle 2'],
+                y: [price1,price2],
+                type: 'bar'
+            }];
+            Plotly.newPlot('price-chart', price_data);
+        </script>
+
+<button class="btn btn-danger" onclick="history.back()">Clear Results</button>
+
+
     {% endif %}
     
 

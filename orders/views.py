@@ -5,12 +5,14 @@ from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views.generic import ListView, CreateView, DetailView
-from orders.models import Vehicle, Order, Details, OrderHistory
+from orders.models import Vehicle, Order, Details
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 import logging
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 # Create your views here.
@@ -116,9 +118,11 @@ def compare(request):
         vehicle2_id = request.POST.get('vehicle2')
         vehicle1 = get_object_or_404(Details, pk=vehicle1_id)
         vehicle2 = get_object_or_404(Details, pk=vehicle2_id)
+       
         context = {
             'vehicle1': vehicle1,
             'vehicle2': vehicle2,
+           
         }
         return render(request, 'compare.html', context)
     else:
