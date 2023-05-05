@@ -1,0 +1,21 @@
+{% extends "admin/base.html" %}
+
+{% block title %}{{ title }} | {{ site_title|default:_('My Admin Site') }}{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">{{ site_header|default:_('My Admin Site') }}</a></h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block nav-sidebar %}
+{% if user.is_active and user.is_staff %}
+<div class="module">
+    <h2>{% trans 'Dealership' %}</h2>
+    <ul class="nav">
+        <li><a href="{% url 'vehicle_list' %}">{% trans 'Vehicles' %}</a></li>
+        <li><a href="{% url 'admin:myapp_order_changelist' %}">{% trans 'Orders' %}</a></li>
+    </ul>
+</div>
+{% endif %}
+{% endblock %}

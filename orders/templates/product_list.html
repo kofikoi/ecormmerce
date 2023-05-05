@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="mb-5">Browse through our Vehicles</h1>
+    <form action="{% url 'product_list' %}" method="get">
+      <div class="input-group mb-3">
+          <input type="text" name="q" class="form-control" placeholder="Search vehicle">
+          <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="submit">Search</button>
+          </div>
+          <div class="input-group-append">
+            <!-- <button class="btn btn-outline-secondary" type="submit">Compare</button> -->
+            <a href="{% url 'compare'%}" class="btn btn-primary">Compare</a>
+        </div>
+      </div>
+  </form>
+  
+    <div class="row">
+      {% for vehicle in object_list %}
+        <div class="col-md-4 mb-5">
+          <div class="card h-100">
+            
+            <div class="card-body">
+              <h2 class="card-title">{{ vehicle.vehicle }}</h2>
+              <p class="card-text">{{ vehicle.year }}</p>
+              <p class="card-text">${{ vehicle.price }}</p>
+              <!-- <a href="{% url 'vehicle_details' pk=vehicle.id %}" class="btn btn-primary">Buy Now</a> -->
+              <form method="post" action="{% url 'create_order' %}">
+                {% csrf_token %}
+                <input type="hidden" name="detail_id" id="detail_id" value="{{ vehicle.id }}">
+                <input class="btn btn-primary"type="submit" value="Buy now">
+              </form>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+ 
+  <div class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <a class="page-link" href="?page=1">&laquo; first</a>
+      <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+    {% else %}
+      <span class="page-link disabled">&laquo;</span>
+    {% endif %}
+    
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+        <span class="page-link">{{ num }}</span>
+      {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+    
+    {% if page_obj.has_next %}
+    
+      <a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+      <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+    {% else %}
+      <span  class="page-link disabled">&raquo;</span>
+    {% endif %}
+  </div>
+  
+{% endblock %}

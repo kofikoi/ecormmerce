@@ -1,0 +1,11 @@
+{% extends 'base.html'%}
+
+{% block content %}
+<h1><i>Vehicle Specifications</i></h1>
+<h1>{{ vehicle.name}}</h1>
+{%for detail in details %}
+<h3>Make:</h3><h4>{{detail.make}}</h4>
+<h3>Year:</h3><h4>{{detail.year}}</h4>
+<h3>Price:</h3><h4>{{detail.price}}</h4>
+{%endfor%}
+{% endblock %}

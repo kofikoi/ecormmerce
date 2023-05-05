@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- <div>
+	<h1>Welcome to My Car Dealership</h1>
+	<p>View our list of vehicles:</p>
+	<ul>
+		<li><a href="{% url 'product_list' %}">All Vehicles</a></li>
+	</ul>
+	<p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+</div> -->
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-center">
+        <h1>Welcome to My Car Dealership</h1>
+        <p>Here you can browse our list of vehicles and make orders</p>
+        <hr>
+        <div class="mb-3">
+          <a href="{% url 'product_list' %}" class="btn btn-primary btn-lg mr-3">View Vehicles</a>
+          <a href="{{login_url}}" class="btn btn-outline-primary btn-lg">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

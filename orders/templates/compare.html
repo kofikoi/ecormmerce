@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Compare Vehicles</h1>
+    <button class="btn btn-outline-danger" onclick="history.back()">Back to previous</button>
+   
+</div>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="vehicle1">Vehicle 1</label>
+            <select class="form-control" id="vehicle1" name="vehicle1">
+                <option value="">Select a vehicle</option>
+                {% for vehicle in vehicles %}
+                    <option value="{{ vehicle.id }}">{{ vehicle }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="vehicle2">Vehicle 2</label>
+            <select class="form-control" id="vehicle2" name="vehicle2">
+                <option value="">Select a vehicle</option>
+                {% for vehicle in vehicles %}
+                    <option value="{{ vehicle.id }}">{{ vehicle }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Compare</button>
+    </form>
+    {% if vehicle1 and vehicle2 %}
+        <hr>
+        <h2>Comparison Results</h2>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <h3>{{ vehicle1.vehicle }}</h3>
+                <p>{{ vehicle1.model }}</p>
+                <p>Year of make: {{ vehicle1.year }}</p>
+                <p>Price: ${{ vehicle1.price }}</p>
+            </div>
+            <div class="col-md-6">
+                <h3>{{ vehicle2.vehicle }}</h3>
+                <p>{{ vehicle2.model }}</p>
+                <p>Year of make: {{ vehicle2.year }}</p>
+                <p>Price: ${{ vehicle2.price }}</p>
+            </div>
+        </div>
+    {% endif %}
+    
+
+{% endblock %}
