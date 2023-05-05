@@ -11,8 +11,7 @@ from django.contrib.auth import get_user
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 import logging
-import matplotlib.pyplot as plt
-import seaborn as sns
+
 
 
 # Create your views here.
